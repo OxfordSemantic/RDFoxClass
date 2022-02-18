@@ -1,6 +1,6 @@
 PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 
-#Contrsuct diagram
+# Contrsuct diagram to show data model
 CONSTRUCT {?S ?P ?O}
 WHERE {
   SELECT DISTINCT ?S ?P ?O
