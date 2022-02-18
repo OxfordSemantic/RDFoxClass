@@ -1,6 +1,6 @@
 PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 
-#What classes of nodes are there in the data?
+# What classes of nodes are there in the data?
 SELECT DISTINCT ?type
 WHERE {
   ?S a ?type

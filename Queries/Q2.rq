@@ -1,6 +1,6 @@
 PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 
-#What kinds of edges are in the data
+# What kinds of edges are in the data
 SELECT DISTINCT ?P
 WHERE {
   ?S ?P ?O

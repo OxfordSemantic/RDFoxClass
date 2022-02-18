@@ -1,6 +1,6 @@
 PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 
-#Number of races per driver, ordered
+# Number of races per driver, ordered
 SELECT ?driverName (COUNT(?race) AS ?raceCount)
 WHERE {
 
