@@ -1,0 +1,38 @@
+PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
+
+# Can you spot a problem?
+
+# We only return 'biased' results, i.e. those who have at least one win!
+# We will solve this using the so called OPTIONAL keyword
+
+SELECT ?forename ?surname ?raceCount ?raceWinsFinal ?percentage
+WHERE {
+# First get the drivers
+?driver :drivers_forename ?forename ;
+        :drivers_surname ?surname .
+
+# First get the race count for each driver.
+    {SELECT ?driver (COUNT(?race) AS ?raceCount)
+    WHERE {
+    ?result :results_driver ?driver ;
+            :results_race ?race .
+    }
+    GROUP BY ?driver}
+
+# Then *optionally* get the win count for each driver.
+OPTIONAL {SELECT ?driver (COUNT(?race) AS ?raceWins)
+    WHERE {
+    ?result :results_driver ?driver ;
+            :results_race ?race ;
+            :results_positionOrder 1 .
+    }
+    GROUP BY ?driver}
+
+# Using the COALESCE keyword, we make sure that when the number of wins is undefined
+# it is 'bound' as 0.
+BIND(COALESCE(?raceWins,0) AS ?raceWinsFinal)
+# And use the two aggregatee variables to compute a percentage
+BIND(?raceWinsFinal/?raceCount AS ?percentage)
+
+}
+ORDER BY DESC(?percentage)

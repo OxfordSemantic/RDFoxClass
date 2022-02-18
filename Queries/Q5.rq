@@ -1,10 +1,9 @@
 PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 
-# Can you return everything about a specific driver, say Lewis Hamilton?
-SELECT *
+# What are the names of my drivers?
+SELECT DISTINCT ?driver ?forename ?surname
 WHERE {
   ?driver a :drivers ;
-          :drivers_forename "Lewis" ;
-          :drivers_surname "Hamilton" ;
-          ?p ?o .
+          :drivers_forename ?forename ;
+          :drivers_surname ?surname ;
 }

@@ -1,0 +1,10 @@
+PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
+
+# Drivers who never got a podium
+SELECT ?forename ?surname
+WHERE {
+# First, get all the drivers with their names.
+    ?driver a :DriverWithoutPodiums ;
+        :drivers_forename ?forename ;
+        :drivers_surname ?surname .
+    }

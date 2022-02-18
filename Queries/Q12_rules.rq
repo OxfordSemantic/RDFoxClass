@@ -3,7 +3,7 @@ PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 # Now we look at the last query, but this time using rules.
 # It will be faster, and much easier to read and write.
 
-SELECT ?driverName ?raceCount ?percentageFinal
+SELECT ?forename ?surname ?raceCount ?percentageFinal
 WHERE {
 
 ?driver a :drivers ;
@@ -11,8 +11,7 @@ WHERE {
         :drivers_surname ?surname ;
         :hasRaceCount ?raceCount .
 
-OPTIONAL { ?driver :hasWinPercentage ?percentage }       
-BIND(CONCAT(?forename, " ", ?surname) AS ?driverName)
+OPTIONAL { ?driver :hasWinPercentage ?percentage }     
 BIND(COALESCE(?percentage,0) AS ?percentageFinal)
 FILTER(?raceCount > 5)
 

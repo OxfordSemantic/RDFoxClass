@@ -1,41 +1,32 @@
 PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 
-# Can you spot a problem?
-
-# We only return 'biased' results, i.e. those who have at least one win!
-# We will solve this using the so called OPTIONAL keyword
-
-SELECT ?driverName ?raceCount ?raceWinsFinal ?percentage
+# Drivers and list of their teammates
+SELECT ?forename ?surname (GROUP_CONCAT(DISTINCT ?teammateName; SEPARATOR="; ") AS ?teammatesList)
 WHERE {
 
-# First get the race count for each driver.
-    {SELECT ?driver (COUNT(?race) AS ?raceCount)
-    WHERE {
-    ?result :results_driver ?driver ;
-            :results_race ?race .
-    }
-    GROUP BY ?driver}
+# Make sure the drivers drove for the same team AT the same race.
+# We want to avoid drivers who drove for the same team in two different periods:
+# -Lauda and Schumacher both drove for Ferrari, but in different periods
+# -Schumacher and Hamilton both drove in the same period (2010-12),
+# but in that period they drove for different teams.
+# They also drove for the same team, but never at the same time for the same team.
 
-# Then get the *win* count for each driver.
-OPTIONAL {SELECT ?driver (COUNT(?race) AS ?raceWins)
-    WHERE {
-    ?result :results_driver ?driver ;
-            :results_race ?race ;
-            :results_positionOrder 1 .
-    }
-    GROUP BY ?driver}
+  ?result1 :results_driver ?driver ;
+          :results_race ?race ; # same race
+          :results_constructor ?constructor . # same constructor
+  
+  ?result2 :results_driver ?teammate ;
+          :results_race ?race ; # same race
+          :results_constructor ?constructor . # same constructor
 
-# Use the forename and surname to make the full name
-# This is not strictly necessary...
-?driver :drivers_forename ?forename ;
-        :drivers_surname ?surname .
-BIND(CONCAT(?forename, " ", ?surname) AS ?driverName)
-
-# Using the COALESCE keyword, we make sure that when the number of wins is undefined
-# it is 'bound' as 0.
-BIND(COALESCE(?raceWins,0) AS ?raceWinsFinal)
-# And use the two aggregatee variables to compute a percentage
-BIND(?raceWinsFinal/?raceCount AS ?percentage)
-
+  ?driver :drivers_forename ?forename ;
+          :drivers_surname ?surname .
+  
+  ?teammate :drivers_forename ?tmForename ;
+          :drivers_surname ?tmSurname .
+  
+  BIND(CONCAT(?forename, " ", ?surname) AS ?driverName)
+  BIND(CONCAT(?tmForename, " ", ?tmSurname) AS ?teammateName)
+  FILTER(?driver != ?teammate)
 }
-ORDER BY DESC(?percentage)
+GROUP BY ?forename ?surname

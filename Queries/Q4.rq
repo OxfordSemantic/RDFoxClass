@@ -1,9 +1,8 @@
 PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 
-# What are the names of my drivers?
-SELECT DISTINCT ?driver ?forename ?surname
+# What types of edges are there specifically for drivers?
+SELECT DISTINCT ?p
 WHERE {
-  ?driver a :drivers ;
-          :drivers_forename ?forename ;
-          :drivers_surname ?surname ;
+  ?s a :drivers ;
+    ?p ?o .
 }

@@ -1,16 +1,10 @@
 PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 
-# Number of races per driver, ordered
-SELECT ?driverName (COUNT(?race) AS ?raceCount)
+# Can you return everything about a specific driver, say Lewis Hamilton?
+SELECT ?p ?o
 WHERE {
-
-  ?result :results_driver ?driver ;
-          :results_race ?race .
-  
-  ?driver :drivers_forename ?forename ;
-          :drivers_surname ?surname .
-  
-  BIND(CONCAT(?forename, " ", ?surname) AS ?driverName)
+  ?driver a :drivers ;
+          :drivers_forename "Lewis" ;
+          :drivers_surname "Hamilton" ;
+          ?p ?o .
 }
-GROUP BY ?driverName
-ORDER BY DESC(?raceCount)
