@@ -7,13 +7,10 @@ WHERE {
   ?result :results_driver ?driver ;
           :results_race ?race .
   
-  ?race :races_name ?raceName ;
-        :races_year ?year .
-  
   ?driver :drivers_forename ?forename ;
           :drivers_surname ?surname .
   
   BIND(CONCAT(?forename, " ", ?surname) AS ?driverName)
 }
-GROUP BY ?driver
+GROUP BY ?driverName
 ORDER BY DESC(?raceCount)
