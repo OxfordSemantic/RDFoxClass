@@ -2,3 +2,9 @@ dstore create f1
 active f1
 
 import data.ttl.zip
+
+info
+
+set dir.queries ./Queries/
+
+set dir.dlog ./Rules/
