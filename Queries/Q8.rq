@@ -1,0 +1,34 @@
+PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
+
+#Drivers with their win percentage, ordered by win percentage
+SELECT ?driverName ?raceCount ?raceWins ?percentage
+WHERE {
+
+#First get the race count for each driver.
+    {SELECT ?driver (COUNT(?race) AS ?raceCount)
+    WHERE {
+    ?result :results_driver ?driver ;
+            :results_race ?race .
+    }
+    GROUP BY ?driver}
+
+#Then get the *win* count for each driver.
+    {SELECT ?driver (COUNT(?race) AS ?raceWins)
+    WHERE {
+    ?result :results_driver ?driver ;
+            :results_race ?race ;
+            :results_positionOrder 1 .
+    }
+    GROUP BY ?driver}
+
+#Use the forename and surname to make the full name
+#This is not strictly necessary...
+?driver :drivers_forename ?forename ;
+        :drivers_surname ?surname .
+BIND(CONCAT(?forename, " ", ?surname) AS ?driverName)
+
+#And use the two aggregate variables to compute a percentage
+BIND(?raceWins/?raceCount AS ?percentage)
+
+}
+ORDER BY DESC(?percentage)
