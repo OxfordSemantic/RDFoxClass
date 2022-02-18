@@ -1,6 +1,6 @@
 PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 
-#Drivers and teammates
+#Drivers and list of their teammates
 SELECT ?driverName (GROUP_CONCAT(DISTINCT ?teammateName; SEPARATOR="; ") AS ?teammatesList)
 WHERE {
 

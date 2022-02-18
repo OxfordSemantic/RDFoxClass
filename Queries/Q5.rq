@@ -1,6 +1,6 @@
 PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 
-#What types of things do we have?
+#Can you return everything about a specific driver, say Lewis Hamilton?
 SELECT *
 WHERE {
   ?driver a :drivers ;
