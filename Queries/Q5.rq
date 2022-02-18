@@ -1,0 +1,10 @@
+PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
+
+#What types of things do we have?
+SELECT *
+WHERE {
+  ?driver a :drivers ;
+          :drivers_forename "Lewis" ;
+          :drivers_surname "Hamilton" ;
+          ?p ?o .
+}

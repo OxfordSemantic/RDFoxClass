@@ -1,0 +1,6 @@
+PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
+
+SELECT ?S ?P ?O
+WHERE {
+  ?S ?P ?O
+}

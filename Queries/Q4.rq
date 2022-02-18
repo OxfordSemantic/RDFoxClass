@@ -1,0 +1,9 @@
+PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
+
+#What types of things do we have?
+SELECT DISTINCT ?driver ?forename ?surname
+WHERE {
+  ?driver a :drivers ;
+          :drivers_forename ?forename ;
+          :drivers_surname ?surname ;
+}

@@ -1,0 +1,25 @@
+PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
+
+#Drivers and teammates
+SELECT ?driverName (GROUP_CONCAT(DISTINCT ?teammateName; SEPARATOR="; ") AS ?teammatesList)
+WHERE {
+
+  ?result1 :results_driver ?driver ;
+          :results_race ?race ; #same race
+          :results_constructor ?constructor . #same constructor
+  
+  ?result2 :results_driver ?teammate ;
+          :results_race ?race ; #same race
+          :results_constructor ?constructor . #same constructor
+
+  ?driver :drivers_forename ?forename ;
+          :drivers_surname ?surname .
+  
+  ?teammate :drivers_forename ?tmForename ;
+          :drivers_surname ?tmSurname .
+  
+  BIND(CONCAT(?forename, " ", ?surname) AS ?driverName)
+  BIND(CONCAT(?tmForename, " ", ?tmSurname) AS ?teammateName)
+  FILTER(?driver != ?teammate)
+}
+GROUP BY ?driver

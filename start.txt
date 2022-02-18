@@ -1,0 +1,4 @@
+dstore create f1
+active f1
+
+import data.ttl.zip

@@ -1,0 +1,17 @@
+PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
+
+#Contrsuct diagram
+CONSTRUCT {?S ?P ?O}
+WHERE {
+  SELECT DISTINCT ?S ?P ?O
+  WHERE {
+    ?se ?P ?oe .
+    ?se a ?S .
+    {?oe a ?O}
+    UNION
+    { ?se ?P ?oe 
+      FILTER(ISLITERAL(?oe))
+      BIND(DATATYPE(?oe) AS ?O)}
+    }
+
+}
