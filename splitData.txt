@@ -1,0 +1,8 @@
+set output 2021-22.ttl
+answer 2021.rq
+
+set output out
+
+import - 2021-22.ttl
+
+export upTo2020.ttl

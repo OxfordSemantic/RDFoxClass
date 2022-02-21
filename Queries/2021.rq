@@ -1,0 +1,10 @@
+PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
+
+# Retrieve only data about results 2021 (inclusive) onwards
+CONSTRUCT {?s ?p ?o}
+WHERE {
+?s ?p ?o ;
+    a :results ;
+    :results_race/:races_year/:seasons_year ?yr .
+    FILTER (?yr > 2020)
+}
