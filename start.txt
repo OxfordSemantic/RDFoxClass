@@ -1,3 +1,7 @@
+endpoint start
+
+set output out
+
 dstore create f1
 active f1
 
