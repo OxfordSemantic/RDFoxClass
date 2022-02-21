@@ -1,13 +1,9 @@
 PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 
-# We can do many more things with rules.
-# One of them is aggregation.
+# Find if a driver has *won* a race without going through a 'result' object.
+[?driver, :hasWonRace, ?race] :-
+    [?result, :results_race, ?race],
+    [?result, :results_driver, ?driver],
+    [?result, :results_positionOrder, 1] .
 
-[?driver, :hasRaceCount, ?raceCount] :-
-    AGGREGATE(
-        [?driver, :hasRacedIn, ?race]
-        ON ?driver
-        BIND COUNT(?race) AS ?raceCount
-        ) .
-# Notice that we are using the previously 'inferred' property :hasRacedIn
-# Now we can use this property in queries too of course, to make them faster and more readable.
+    
