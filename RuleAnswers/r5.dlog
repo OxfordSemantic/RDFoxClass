@@ -4,6 +4,6 @@ PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 
 # Here we compute the win percentage for drivers.
 [?driver, :hasWinPercentage, ?percentage] :-
-    [?___, :hasRaceCount, ?___],
-    [?___, :hasRaceWinCount, ?___],
+    [?driver, :hasRaceCount, ?raceCount],
+    [?driver, :hasRaceWinCount, ?raceWinCount],
     BIND(?raceWinCount/?raceCount AS ?percentage) .

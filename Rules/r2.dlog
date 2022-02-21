@@ -9,5 +9,5 @@ PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
         ON ?driver
         BIND COUNT(?race) AS ?raceCount
         ) .
-# Notice that we are using the previously 'inferred' property :hasRaceCount
+# Notice that we are using the previously 'inferred' property :hasRacedIn
 # Now we can use this property in queries too of course, to make them faster and more readable.
