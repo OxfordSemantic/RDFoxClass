@@ -1,0 +1,13 @@
+PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
+
+# We can do many more things with rules.
+# One of them is aggregation.
+
+[?driver, :hasRaceCount, ?raceCount] :-
+    AGGREGATE(
+        [?driver, :hasRacedIn, ?race]
+        ON ?driver
+        BIND COUNT(?race) AS ?raceCount
+        ) .
+# Notice that we are using the previously 'inferred' property :hasRaceCount
+# Now we can use this property in queries too of course, to make them faster and more readable.

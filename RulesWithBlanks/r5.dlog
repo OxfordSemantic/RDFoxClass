@@ -1,0 +1,9 @@
+PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
+
+# Finally, we can also do numerical computations with rules.
+
+# Here we compute the win percentage for drivers.
+[?driver, :hasWinPercentage, ?percentage] :-
+    [?___, :hasRaceCount, ?___],
+    [?___, :hasRaceWinCount, ?___],
+    BIND(?raceWinCount/?raceCount AS ?percentage) .
