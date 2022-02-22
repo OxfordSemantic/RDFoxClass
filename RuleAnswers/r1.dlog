@@ -1,0 +1,15 @@
+PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
+
+# A basic rule:
+# Find if a driver has been in a race without going through a 'result' object
+[?driver, :hasRacedIn, ?race] :-
+    [?result, :results_race, ?race],
+    [?result, :results_driver, ?driver] .
+
+# This looks like the  following write query (yes you can use SPARQL for writes too)
+# We'll explain later why rules are often better than write queries
+# INSERT {?driver :hasRacedIn ?race}
+# WHERE {
+#     ?result :results_race ?race ;
+#      :results_driver ?driver .
+# }

@@ -5,7 +5,7 @@ set output out
 dstore create f1
 active f1
 
-import data.ttl.zip
+import upTo2020.ttl.zip
 
 info
 

@@ -1,9 +1,9 @@
 PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 
-# Finally, we can also do numerical computations with rules.
+# Now we can also look at negation as failure, another very powerful feature of rules
+# Let's find out if a driver has never been on the podium.
 
-# Here we compute the win percentage for drivers.
-[?driver, :hasWinPercentage, ?percentage] :-
-    [?driver, :hasRaceCount, ?raceCount],
-    [?driver, :hasRaceWinCount, ?raceWinCount],
-    BIND(?raceWinCount/?raceCount AS ?percentage) .
+[?driver, a, :DriverWithoutPodiums] :-
+    [?driver, a, :drivers],
+    NOT EXISTS ?race IN (
+        [?driver, :hasPodiumInRace, ?race]) .
