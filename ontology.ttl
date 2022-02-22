@@ -1,0 +1,42 @@
+@prefix : <http://www.oxfordsemantic.tech/f1demo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+:PolePositionQualifying a owl:Class .
+:qualifying a owl:Class .
+:results a owl:Class .
+:Win a owl:Class .
+
+:results_driver a owl:ObjectProperty .
+:results_race a owl:ObjectProperty .
+:hasRacedIn a owl:ObjectProperty .
+:results_positionOrder a owl:DatatypeProperty .
+:qualifying_position a owl:DatatypeProperty .
+
+:hasRacedIn owl:propertyChainAxiom (
+    [owl:inverseOf :results_driver]
+    :results_race
+) .
+
+:PolePositionQualifying owl:equivalentClass [ 
+    a owl:Class ;
+    owl:intersectionOf (
+        :qualifying
+        [
+            a owl:Restriction ;
+            owl:onProperty :qualifying_position ;
+            owl:hasValue "1"^^xsd:integer
+        ]
+    )
+] .
+
+:Win owl:equivalentClass [
+    a owl:Class ;
+    owl:intersectionOf (
+        :results 
+        [
+            a owl:Restriction ;
+            owl:onProperty :results_positionOrder ;
+            owl:hasValue "1"^^xsd:integer
+        ]
+    )
+] .
