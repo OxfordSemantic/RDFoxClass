@@ -1,9 +1,9 @@
 PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 
-# Find if a driver has *won* a race without going through a 'result' object.
-[?driver, :hasWonRace, ?race] :-
+# Find if a driver has *reached a podium* a race without going through a 'result' object.
+[?driver, :hasPodiumInRace, ?race] :-
     [?result, :results_race, ?race],
     [?result, :results_driver, ?driver],
-    [?result, :results_positionOrder, 1] .
+    [?result, :results_positionOrder, ?positionOrder],
+    FILTER(?positionOrder < 4) .
 
-    

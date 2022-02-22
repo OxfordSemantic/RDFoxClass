@@ -1,16 +1,9 @@
 PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 
 # Now we can also look at negation as failure, another very powerful feature of rules
-# Let's find out if a driver has never been on the podium
+# Let's find out if a driver has never been on the podium.
 
-# First, we'll use a rule to determine if a result is 'in the podium places'.
-[?___, a, :PodiumPlaceResult] :-
-    [?___, :results_positionOrder, ?___],
-    FILTER(?___ < 4) .
-
-# Then we look for drivers, who have no :PodiumPlaceResult.
 [?driver, a, :DriverWithoutPodiums] :-
     [?driver, a, :drivers],
-    NOT EXISTS ?result IN (
-        [?result, :results_driver, ?driver],
-        [?result, a, :PodiumPlaceResult]) .
+    NOT EXISTS ?race IN (
+        [?driver, :hasPodiumInRace, ?race]) .

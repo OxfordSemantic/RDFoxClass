@@ -1,10 +1,14 @@
 PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 
-# Let's write another rule, but this time we want to count race wins.
-[?driver, :hasRaceWinCount, ?raceWinCount] :-
+# We can do many more things with rules.
+# One of them is aggregation.
+
+[?driver, :hasRaceCount, ?raceCount] :-
     AGGREGATE(
-        [?result, :results_driver, ?driver],
-        [?result, :results_positionOrder, 1] #Here we make sure the driver actually won 
+        [?driver, :hasRacedIn, ?race]
         ON ?driver
-        BIND COUNT(?result) AS ?raceWinCount
+        BIND COUNT(?race) AS ?raceCount
         ) .
+
+# Notice that we are using the previously 'inferred' property :hasRacedIn
+# Now we can use this property in queries too of course, to make them faster and more readable.
