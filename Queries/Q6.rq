@@ -1,7 +1,7 @@
 PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
 
 # Can you return everything about a specific driver, say Lewis Hamilton?
-SELECT ?p ?o
+SELECT ?driver ?p ?o
 WHERE {
   ?driver a :drivers ;
           :drivers_forename "Lewis" ;
