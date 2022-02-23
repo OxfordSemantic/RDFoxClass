@@ -18,7 +18,7 @@ WHERE {
             :results_race ?race .
     }
     GROUP BY ?driver
-    HAVING(?raceCount > 5)}
+    }
 
 # Then *optionally* get the win count for each driver.
 OPTIONAL {SELECT ?driver (COUNT(?race) AS ?raceWins)

@@ -13,7 +13,7 @@ WHERE {
 
 OPTIONAL { ?driver :hasWinPercentage ?percentage }     
 BIND(COALESCE(?percentage,0) AS ?percentageFinal)
-FILTER(?raceCount > 5)
+#FILTER(?raceCount > 5)
 
 }
 ORDER BY DESC(?percentageFinal)
