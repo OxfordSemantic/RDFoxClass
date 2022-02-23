@@ -1,0 +1,11 @@
+PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
+
+SELECT ?forename ?surname ?ct ?winCt
+WHERE {
+    ?driver :drivers_forename ?forename ;
+            :drivers_surname ?surname ;
+            :hasRaceCount ?ct ;
+            :hasRaceWinCount ?winCt .
+}
+ORDER BY DESC(?winCt)
+LIMIT 15

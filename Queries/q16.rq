@@ -1,0 +1,17 @@
+PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
+
+SELECT ?forename ?surname ?raceName ?year
+WHERE {
+    ?result a :Win ;
+        :results_driver ?driver ;
+        :results_race ?race .
+
+    ?driver :drivers_forename ?forename ;
+            :drivers_surname ?surname .
+
+    ?race :races_name ?raceName ;
+        :races_year ?year ;
+        :races_round ?round . #At what stage in the season did the race take place?
+}
+ORDER BY DESC(?year) DESC(?round)
+LIMIT 15

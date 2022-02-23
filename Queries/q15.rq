@@ -1,0 +1,10 @@
+PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
+
+SELECT ?forename ?surname ?percentage
+WHERE {
+    ?driver :drivers_forename ?forename ;
+            :drivers_surname ?surname ;
+            :hasWinPercentage ?percentage .
+}
+ORDER BY DESC(?percentage)
+LIMIT 15
