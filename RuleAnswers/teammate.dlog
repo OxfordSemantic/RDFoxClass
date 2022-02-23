@@ -1,0 +1,11 @@
+PREFIX : <http://www.oxfordsemantic.tech/f1demo/>
+
+# The teammate rule
+[?driver, :hasTeammate, ?teammate] :-
+    [?result, :results_driver, ?driver],
+    [?result, :results_race, ?race], #same race
+    [?result, :results_constructor, ?constructor], #same contructor
+    [?result2, :results_driver, ?teammate],
+    [?result2, :results_race, ?race],
+    [?result2, :results_constructor, ?constructor],
+    FILTER(?driver != ?teammate) . #Make sure the driver is not his own teammate.
